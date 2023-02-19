@@ -35,7 +35,7 @@ Install Pillow with pip:
 
 .. code:: bash
 
-    $ pip install PyTexturePacker
+    $ python setup.py install
 
 
 Usage
@@ -139,6 +139,11 @@ atlas_format
 -------
 Choose the texture config format that file will use. Available options "plist" or "json".
 The default texture config output format is "plist".
+
+save_mode
+-------
+Whether to save the texture config data to file or return it. When false, returns the data instead.".
+The default value is true.
 
 Contribute
 ==========

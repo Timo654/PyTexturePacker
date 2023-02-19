@@ -45,10 +45,10 @@ class AtlasInterface(object):
 
         frames = {}
         for image_rect in self.image_rect_list:
+            center_offset = (image_rect.extrude_size, image_rect.extrude_size)
             width, height = (image_rect.width - 2 * image_rect.extrude_size, image_rect.height - 2 * image_rect.extrude_size) \
-                if not image_rect.rotated else (image_rect.height - 2 * image_rect.extrude_size, image_rect.width - 2 * image_rect.extrude_size)
-
-            center_offset = (0, 0)
+            if not image_rect.rotated else (image_rect.height - 2 * image_rect.extrude_size, image_rect.width - 2 * image_rect.extrude_size)
+            
             if image_rect.trimmed:
                 center_offset = (image_rect.source_box[0] + width / 2. - image_rect.source_size[0] / 2.,
                                  - (image_rect.source_box[1] + height / 2. - image_rect.source_size[1] / 2.))
@@ -71,7 +71,7 @@ class AtlasInterface(object):
 
             if atlas_format == ATLAS_FORMAT_JSON:
                 frames[path] = dict(
-                    frame=dict(x=image_rect.x, y=image_rect.y, w=width, h=height),
+                    frame=dict(x=image_rect.x+center_offset[0], y=image_rect.y+center_offset[1], w=width, h=height),
                     rotated=bool(image_rect.rotated),
                     trimed=bool(image_rect.trimmed),
                     spriteSourceSize=dict(
